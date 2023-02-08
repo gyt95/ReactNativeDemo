@@ -40,7 +40,7 @@ function Section({children, title}: SectionProps): JSX.Element {
             color: isDarkMode ? Colors.white : Colors.black,
           },
         ]}>
-        {title}
+        {title}我终于成功啦！
       </Text>
       <Text
         style={[
