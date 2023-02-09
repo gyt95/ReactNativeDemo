@@ -5,7 +5,7 @@
  * @format
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   SafeAreaView,
@@ -13,16 +13,14 @@ import {
   StatusBar,
   StyleSheet,
   Text,
+  TextInput,
   useColorScheme,
   View,
 } from 'react-native';
 
 import {
   Colors,
-  DebugInstructions,
   Header,
-  LearnMoreLinks,
-  ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
 type SectionProps = PropsWithChildren<{
@@ -62,6 +60,15 @@ function App(): JSX.Element {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+  const [text, setText] = useState('');
+
+  const [list, setList] = useState([])
+
+  const handleSubmit = () => {
+    // setList(text)
+    setText('')
+  }
+
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
@@ -76,20 +83,26 @@ function App(): JSX.Element {
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
+            <TextInput
+              style={{
+                height: 40,
+                borderColor: 'gray',
+                borderWidth: 1
+              }}
+              value={text}
+              placeholder="请输入内容"
+              onChangeText={text=>setText(text)}
+              onSubmitEditing={handleSubmit}
+            ></TextInput>
+            <View>
+              {
+                list.map(item => (
+                  <View>
+                    <Text>{item}</Text>
+                  </View>
+                ))
+              }
+            </View>
         </View>
       </ScrollView>
     </SafeAreaView>
