@@ -6,10 +6,8 @@
  */
 
 import React, { useState } from 'react';
-import type {PropsWithChildren} from 'react';
 import {
   SafeAreaView,
-  ScrollView,
   StatusBar,
   StyleSheet,
   Text,
@@ -20,38 +18,7 @@ import {
 
 import {
   Colors,
-  Header,
 } from 'react-native/Libraries/NewAppScreen';
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}我终于成功啦！
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -65,7 +32,6 @@ function App(): JSX.Element {
   const [list, setList] = useState([])
 
   const handleSubmit = () => {
-    // setList(text)
     setText('')
   }
 
@@ -75,19 +41,27 @@ function App(): JSX.Element {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
+      <View
         style={backgroundStyle}>
-        <Header />
+        <View>
+          <Text style={{
+            color: '#0d6efd',
+            fontSize: 34,
+            fontWeight: 'bold',
+            textAlign: 'center',
+            padding: 40,
+          }}>Todo List</Text>
+        </View>
         <View
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
             <TextInput
               style={{
+                width: '80%',
                 height: 40,
                 borderColor: 'gray',
-                borderWidth: 1
+                borderWidth: 1,
               }}
               value={text}
               placeholder="请输入内容"
@@ -104,28 +78,9 @@ function App(): JSX.Element {
               }
             </View>
         </View>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default App;
