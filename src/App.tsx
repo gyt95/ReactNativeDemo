@@ -5,7 +5,7 @@
  * @format
  */
 
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   SafeAreaView,
   StatusBar,
@@ -15,10 +15,10 @@ import {
   View,
 } from 'react-native';
 
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 import Header from './components/Header';
 import TodoItem from './components/TodoItem';
-import type {TodoItemType} from './types';
+import type { TodoItemType } from './types';
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -82,11 +82,12 @@ function App(): JSX.Element {
         <Header />
 
         <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-            marginHorizontal: 20,
-            padding: 10,
-          }}>
+          style={[
+            styles.container,
+            {
+              backgroundColor: isDarkMode ? Colors.black : Colors.white,
+            }
+          ]}>
           <TextInput
             style={styles.todoItemCreate}
             value={text}
@@ -114,6 +115,10 @@ function App(): JSX.Element {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    marginHorizontal: 20,
+    padding: 10,
+  },
   todoItemCreate: {
     height: 40,
     borderWidth: 1,

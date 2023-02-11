@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {TodoItemType} from '../types';
+import { TodoItemType } from '../types';
 
 interface TodoItemProps {
   data: TodoItemType;
@@ -15,13 +15,13 @@ interface TodoItemProps {
 }
 
 export default function TodoItem(props: TodoItemProps): JSX.Element {
-  const {data} = props;
+  const { data } = props;
   return (
     <View key={data.id} style={styles.todoItemWrapper}>
       <TouchableOpacity
         style={styles.todoItemCheckbox}
         onPress={() => props.finish(data)}>
-        {data.isDeleted && <Text style={{color: '#409EFF'}}>✔</Text>}
+        {data.isDeleted && <Text style={{ color: '#409EFF' }}>✔</Text>}
       </TouchableOpacity>
 
       {data.isDeleted ? (
