@@ -16,9 +16,9 @@ import {
 } from 'react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import Header from './src/components/Header';
-import TodoItem from './src/components/TodoItem';
-import type {TodoItemType} from './src/types';
+import Header from './components/Header';
+import TodoItem from './components/TodoItem';
+import type {TodoItemType} from './types';
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
