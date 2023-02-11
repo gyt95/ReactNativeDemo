@@ -8,10 +8,10 @@ A Todo List.
 
 In the command terminal, run the following commands.
 
-  $ git clone https://github.com/gyt95/ReactNativeDemo.git
-  $ cd ReactNativeDemo
-  $ yarn start
-  $ press 'a'
+    $ git clone https://github.com/gyt95/ReactNativeDemo.git
+    $ cd ReactNativeDemo
+    $ yarn start
+    $ press 'a'
 
 ## Screenshots
 
