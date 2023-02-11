@@ -100,6 +100,7 @@ function App(): JSX.Element {
             <View style={styles.todoList}>
               {list.map(item => (
                 <TodoItem
+                  key={item.id}
                   data={item}
                   finish={finishItem}
                   update={updateItem}

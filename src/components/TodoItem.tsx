@@ -17,7 +17,7 @@ interface TodoItemProps {
 export default function TodoItem(props: TodoItemProps): JSX.Element {
   const { data } = props;
   return (
-    <View key={data.id} style={styles.todoItemWrapper}>
+    <View style={styles.todoItemWrapper}>
       <TouchableOpacity
         style={styles.todoItemCheckbox}
         onPress={() => props.finish(data)}>
