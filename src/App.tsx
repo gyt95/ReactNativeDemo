@@ -7,8 +7,10 @@
 
 import React, { useState } from 'react';
 import {
+  ActivityIndicator,
   Alert,
   Button,
+  Platform,
   SafeAreaView,
   StatusBar,
   StyleSheet,
@@ -24,6 +26,12 @@ import TodoItem from './components/TodoItem';
 import type { TodoItemType } from './types';
 
 function App(): JSX.Element {
+  if(Platform.OS === 'android'){
+    console.log('android app')
+  }else if(Platform.OS === 'ios'){
+    console.log('ios app')
+  }
+
   const isDarkMode = useColorScheme() === 'dark';
 
   const [id, setId] = useState(1);
@@ -143,6 +151,13 @@ function App(): JSX.Element {
         <Button title="Two Func Button" onPress={createTwoButtonAlert} color="green"></Button>
         <Button title="Three Func Button" onPress={createThreeButtonAlert} color="tomato"></Button>
         <Switch trackColor={{ false:'red', true: 'green' }} thumbColor={!hideStatusBar?'grey':'blue'} value={hideStatusBar} onValueChange={() => setStatusBar(!hideStatusBar)}></Switch>
+
+        {/* large/small size can be effective in Android and iOS */}
+        <ActivityIndicator color="#00d00f" size={'large'}/>
+        <ActivityIndicator color="#00d00f" size={'small'}/>
+        {/* number size only be effective in Android */}
+        <ActivityIndicator color="#00d00f" size={20}/>
+        <ActivityIndicator color="#00d0ff" size={50}/>
 
         <View
           style={[
