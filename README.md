@@ -33,6 +33,22 @@ Click "Debug" option in the list from dialog.
 
 Then you can use browser to debug the effect in the device. 
 
+**If device show homepage not your app, you can restart the app by `yarn android`** 
+
+## Flexbox
+
+It's different to web. In web's Flexbox the mainaxis is horizontal, but the mainaxis is vertical in RN's Flexbox.
+
+The cross axis is different too.
+
+commonProperty:
+
+flexDirection: column(default in RN)  row(default in web)
+
+## ScrollView
+
+use <ScrollView> to wrap the area you want to scroll, not <View> which can't scroll.
+
 ## Screenshots
 
 ![screenshot1](https://github.com/gyt95/ReactNativeDemo/blob/main/screenshots/image.png)
