@@ -12,6 +12,7 @@ import {
   SafeAreaView,
   StatusBar,
   StyleSheet,
+  Switch,
   TextInput,
   useColorScheme,
   View,
@@ -34,6 +35,8 @@ function App(): JSX.Element {
   const [text, setText] = useState('');
 
   const [list, setList] = useState<TodoItemType[]>([]);
+
+  const [hideStatusBar, setStatusBar] = useState(false)
 
   const submit = () => {
     setList([
@@ -129,6 +132,7 @@ function App(): JSX.Element {
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
+        hidden={hideStatusBar}
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
@@ -138,6 +142,7 @@ function App(): JSX.Element {
         {/* Can not use style property in Button */}
         <Button title="Two Func Button" onPress={createTwoButtonAlert} color="green"></Button>
         <Button title="Three Func Button" onPress={createThreeButtonAlert} color="tomato"></Button>
+        <Switch trackColor={{ false:'red', true: 'green' }} thumbColor={!hideStatusBar?'grey':'blue'} value={hideStatusBar} onValueChange={() => setStatusBar(!hideStatusBar)}></Switch>
 
         <View
           style={[
