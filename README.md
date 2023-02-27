@@ -43,7 +43,50 @@ The cross axis is different too.
 
 commonProperty:
 
-flexDirection: column(default in RN)  row(default in web)
+flexDirection: column(default in RN)  row(default in web) column-reverse row-reverse
+justifyContent: align in main axis (vertical)
+
+  flex-start    |abc          |
+  center        |     abc     |
+  flex-end      |          abc|
+  space-round   | a    b    c |
+  space-evenly  |   a  b  c   |
+  space-between |a     b     c|
+
+alignItems: align in cross axis (horizontal)
+
+flex
+  flexRow 1:1:1
+  a(1)  b(1)  c(1)
+
+  flexRow 1:2:3
+  a(1)b(2)b(2)c(3)c(3)c(3) // become 6 part  
+  
+  flexColumn 1:1:1
+  a(1)  
+  b(1)  
+  c(1)
+
+## Dimensions
+
+To get width and height about device.
+
+```js
+import { Dimensions } from 'react-native';
+const windowWidth = Dimensions.get('window').width;
+```
+
+There are various screen sizes, and there is no need to customize development for a certain size, so responsive layout is useful.
+
+### Why not I use width: 100?
+
+Because different device with different width. So you can use Dimensions instead it.
+
+`width: Dimensions.get('window').width/4`
+
+It means each item accounts for 1/4.
+
+
 
 ## ScrollView
 
