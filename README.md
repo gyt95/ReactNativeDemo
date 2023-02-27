@@ -35,6 +35,10 @@ Then you can use browser to debug the effect in the device.
 
 **If device show homepage not your app, you can restart the app by `yarn android`** 
 
+## ScrollView
+
+use <ScrollView> to wrap the area you want to scroll, not <View> which can't scroll.
+
 ## Flexbox
 
 It's different to web. In web's Flexbox the mainaxis is horizontal, but the mainaxis is vertical in RN's Flexbox.
@@ -86,11 +90,33 @@ Because different device with different width. So you can use Dimensions instead
 
 It means each item accounts for 1/4.
 
+## Core Components
 
+Components in react-native, like <View> <Image> <Text>
 
-## ScrollView
+### Common
 
-use <ScrollView> to wrap the area you want to scroll, not <View> which can't scroll.
+```
+View
+Text
+Alert
+Button
+Switch
+StatusBar
+ActivityIndicator // show loading 
+
+Image
+TextInput
+Touchable   // with three touch component
+ScrollView
+SectionList  // grouped List Components
+FlatList    // high Performance List Components
+Animated
+```
+
+## Third Party Components
+
+##
 
 ## Screenshots
 
