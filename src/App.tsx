@@ -10,6 +10,8 @@ import {
   ActivityIndicator,
   Alert,
   Button,
+  Dimensions,
+  Image,
   Platform,
   SafeAreaView,
   StatusBar,
@@ -159,6 +161,8 @@ function App(): JSX.Element {
         <ActivityIndicator color="#00d00f" size={20}/>
         <ActivityIndicator color="#00d0ff" size={50}/>
 
+        <Image source={require('./assets/a.png')} style={styles.itemImage}/>
+
         <View
           style={[
             styles.container,
@@ -194,6 +198,11 @@ function App(): JSX.Element {
 }
 
 const styles = StyleSheet.create({
+  itemImage: {
+    height: 200,
+    width: Dimensions.get('window').width,
+    marginVertical: 20
+  },
   container: {
     marginHorizontal: 20,
     padding: 10,
