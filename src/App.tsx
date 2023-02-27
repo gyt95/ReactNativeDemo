@@ -7,6 +7,8 @@
 
 import React, { useState } from 'react';
 import {
+  Alert,
+  Button,
   SafeAreaView,
   StatusBar,
   StyleSheet,
@@ -72,6 +74,58 @@ function App(): JSX.Element {
     );
   };
 
+  const createTwoButtonAlert = () => {
+    Alert.alert(
+      "warning title",
+      "warning content",
+      [
+        {
+          text: 'Cancel',
+          onPress: () => {
+            console.log('You press Cancel');
+          },
+          style: 'cancel'
+        },
+        {
+          text: 'Confirm',
+          onPress: () => {
+            console.log('You press Confirm');
+          },
+          style: 'default'
+        }
+      ]
+    )
+  }
+
+  const createThreeButtonAlert = () => {
+    Alert.alert(
+      "warning title",
+      "warning content",
+      [
+        {
+          text: 'Later',
+          onPress: () => {
+            console.log('You press Later');
+          },
+        },
+        {
+          text: 'Cancel',
+          onPress: () => {
+            console.log('You press Cancel');
+          },
+          style: 'cancel'
+        },
+        {
+          text: 'Confirm',
+          onPress: () => {
+            console.log('You press Confirm');
+          },
+          style: 'default'
+        }
+      ]
+    )
+  }
+
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
@@ -80,6 +134,10 @@ function App(): JSX.Element {
       />
       <View style={backgroundStyle}>
         <Header />
+
+        {/* Can not use style property in Button */}
+        <Button title="Two Func Button" onPress={createTwoButtonAlert} color="green"></Button>
+        <Button title="Three Func Button" onPress={createThreeButtonAlert} color="tomato"></Button>
 
         <View
           style={[
