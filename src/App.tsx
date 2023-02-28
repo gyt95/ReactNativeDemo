@@ -15,6 +15,7 @@ import {
   Platform,
   SafeAreaView,
   ScrollView,
+  SectionList,
   StatusBar,
   StyleSheet,
   Switch,
@@ -146,6 +147,23 @@ function App(): JSX.Element {
     )
   }
 
+  const DATA = [
+    {
+      title: "Main dishes",
+      data: ["Pizza", "Burger", "Risotto"]
+    },
+    {
+      title: "Sides",
+      data: ["French Fries", "Onion Rings", "Fried Shrimps"]
+    }
+  ];
+
+  const Item = ({ title }: any) => (
+    <View style={styles.SectionListItem}>
+      <Text style={styles.SectionListTitle}>{title}</Text>
+    </View>
+  );
+
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
@@ -211,6 +229,26 @@ function App(): JSX.Element {
           </View>
         </TouchableWithoutFeedback>
 
+        <SectionList
+          sections={DATA}
+          keyExtractor={(item, index) => item + index}
+          renderItem={({ item }) => <Item title={item} />}
+          renderSectionHeader={({ section: { title } }) => (
+            <Text style={styles.SectionListHeader}>{title}</Text>
+          )}
+          ItemSeparatorComponent={() => (
+            <View style={{borderBottomWidth:1,borderBottomColor:'red'}}></View>
+          )}
+          ListEmptyComponent={() => (<Text>No datas</Text>)}
+          ListHeaderComponent={() => (<Text style={{fontSize:40}}>SectionList Title</Text>)}
+          ListFooterComponent={() => (<Text style={{fontSize:25}}>SectionList Footer</Text>)}
+          // can't be used in <ScrollView>
+          // refreshing={false}
+          // onRefresh={() => Alert.alert('dropdown refresh')}
+          // onEndReachedThreshold={0.1}
+          // onEndReached={() => Alert.alert('End.')}
+        />
+
         <View
           style={[
             styles.container,
@@ -248,6 +286,18 @@ function App(): JSX.Element {
 }
 
 const styles = StyleSheet.create({
+  SectionListItem: {
+    backgroundColor: "#f9c2ff",
+    padding: 10,
+    marginVertical: 8
+  },
+  SectionListHeader: {
+    fontSize: 24,
+    backgroundColor: "#fff"
+  },
+  SectionListTitle: {
+    fontSize: 16
+  },
   itemTouchable: {
     borderWidth: 1,
     borderRadius: 6,
