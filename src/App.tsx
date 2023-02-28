@@ -29,6 +29,7 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
+import { WebView } from 'react-native-webview';
 
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import Header from './components/Header';
@@ -349,6 +350,8 @@ function App(): JSX.Element {
             <Button title="Fade Out" onPress={fadeOut} />
           </View>
         </View>
+
+        <WebView source={{ uri: 'https://reactnative.dev/' }} />;
 
         <View
           style={[
