@@ -14,6 +14,7 @@ import {
   Image,
   Platform,
   SafeAreaView,
+  ScrollView,
   StatusBar,
   StyleSheet,
   Switch,
@@ -47,6 +48,8 @@ function App(): JSX.Element {
   const [list, setList] = useState<TodoItemType[]>([]);
 
   const [hideStatusBar, setStatusBar] = useState(false)
+
+  const [longText, setLongText] = useState('');
 
   const submit = () => {
     setList([
@@ -146,7 +149,7 @@ function App(): JSX.Element {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      <View style={backgroundStyle}>
+      <ScrollView style={backgroundStyle}>
         <Header />
 
         {/* Can not use style property in Button */}
@@ -162,6 +165,16 @@ function App(): JSX.Element {
         <ActivityIndicator color="#00d0ff" size={50}/>
 
         <Image source={require('./assets/a.png')} style={styles.itemImage}/>
+
+        <TextInput
+          style={styles.itemTextarea}
+          value={longText}
+          placeholder="请输入内容"
+          onChangeText={text => setLongText(text)}
+          multiline={true}
+          numberOfLines={5}
+          textAlignVertical="top"
+        />
 
         <View
           style={[
@@ -192,12 +205,18 @@ function App(): JSX.Element {
             </View>
           )}
         </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  itemTextarea: {
+    borderWidth: 1,
+    borderRadius: 6,
+    borderColor: '#ccc',
+    margin: 10
+  },
   itemImage: {
     height: 200,
     width: Dimensions.get('window').width,
