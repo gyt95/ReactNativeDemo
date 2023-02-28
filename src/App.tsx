@@ -18,7 +18,11 @@ import {
   StatusBar,
   StyleSheet,
   Switch,
+  Text,
   TextInput,
+  TouchableHighlight,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
   useColorScheme,
   View,
 } from 'react-native';
@@ -176,6 +180,28 @@ function App(): JSX.Element {
           textAlignVertical="top"
         />
 
+        <TouchableHighlight
+          underlayColor="#DDDDDD"
+          onPress={() => Alert.alert('Pressed!')}>
+          <View style={styles.itemTouchable}>
+            <Text>Button TouchableHighlight</Text>
+          </View>
+        </TouchableHighlight>
+
+        <TouchableOpacity
+          onPress={() => Alert.alert('Opacity!')}>
+          <View style={styles.itemTouchable}>
+            <Text>Button TouchableOpacity</Text>
+          </View>
+        </TouchableOpacity>
+
+        <TouchableWithoutFeedback
+          onPress={() => Alert.alert('WiTouchableWithoutFeedback!')}>
+          <View style={styles.itemTouchable}>
+            <Text>Button TouchableWithoutFeedback</Text>
+          </View>
+        </TouchableWithoutFeedback>
+
         <View
           style={[
             styles.container,
@@ -211,6 +237,12 @@ function App(): JSX.Element {
 }
 
 const styles = StyleSheet.create({
+  itemTouchable: {
+    borderWidth: 1,
+    borderRadius: 6,
+    margin: 10,
+    padding: 10
+  },
   itemTextarea: {
     borderWidth: 1,
     borderRadius: 6,
