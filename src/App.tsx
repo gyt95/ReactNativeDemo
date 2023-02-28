@@ -153,7 +153,16 @@ function App(): JSX.Element {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      <ScrollView style={backgroundStyle}>
+      <ScrollView style={{backgroundColor: '#dfb'}} horizontal={true}>
+        <Text style={{margin: 10, width: 50}}>Tab1</Text>
+        <Text style={{margin: 10, width: 50}}>Tab2</Text>
+        <Text style={{margin: 10, width: 50}}>Tab3</Text>
+        <Text style={{margin: 10, width: 50}}>Tab4</Text>
+        <Text style={{margin: 10, width: 50}}>Tab5</Text>
+        <Text style={{margin: 10, width: 50}}>Tab6</Text>
+        <Text style={{margin: 10, width: 50}}>Tab7</Text>
+      </ScrollView>
+      <ScrollView style={backgroundStyle} contentContainerStyle={{margin: 10}} showsVerticalScrollIndicator={false}>
         <Header />
 
         {/* Can not use style property in Button */}
@@ -231,6 +240,8 @@ function App(): JSX.Element {
             </View>
           )}
         </View>
+        {/* To fix the bug that ScrollView in Android can't show content in bottom */}
+        <View style={{height: Platform.OS === 'ios' ? 0 : 100}}></View>
       </ScrollView>
     </SafeAreaView>
   );
