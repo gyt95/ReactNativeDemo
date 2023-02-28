@@ -11,6 +11,7 @@ import {
   Alert,
   Button,
   Dimensions,
+  FlatList,
   Image,
   Platform,
   SafeAreaView,
@@ -157,12 +158,45 @@ function App(): JSX.Element {
       data: ["French Fries", "Onion Rings", "Fried Shrimps"]
     }
   ];
+  const lists = [
+    {
+      id: '1',
+      title: "Flat1",
+    },
+    {
+      id: '2',
+      title: "Flat2",
+    },
+    {
+      id: '3',
+      title: 'Flat3'
+    },
+    {
+      id: '4',
+      title: 'Flat4'
+    },
+    {
+      id: '5',
+      title: 'Flat5'
+    }
+  ];
+  const [selectedId, setSelectedId] = useState('')
 
   const Item = ({ title }: any) => (
     <View style={styles.SectionListItem}>
       <Text style={styles.SectionListTitle}>{title}</Text>
     </View>
   );
+  const renderItem = ({ item }: any) => {
+    const backgroundColor = item.id === selectedId ? '#dfb' : '#f9c2ff'
+    return (
+      <TouchableOpacity style={[styles.SectionListItem, { backgroundColor }]} onPress={() => {
+        setSelectedId(item.id)
+      }}>
+        <Text style={styles.SectionListTitle}>{item.title}</Text>
+      </TouchableOpacity>
+    )
+  }
 
   return (
     <SafeAreaView style={backgroundStyle}>
@@ -172,13 +206,13 @@ function App(): JSX.Element {
         backgroundColor={backgroundStyle.backgroundColor}
       />
       <ScrollView style={{backgroundColor: '#dfb'}} horizontal={true}>
-        <Text style={{margin: 10, width: 50}}>Tab1</Text>
-        <Text style={{margin: 10, width: 50}}>Tab2</Text>
-        <Text style={{margin: 10, width: 50}}>Tab3</Text>
-        <Text style={{margin: 10, width: 50}}>Tab4</Text>
-        <Text style={{margin: 10, width: 50}}>Tab5</Text>
-        <Text style={{margin: 10, width: 50}}>Tab6</Text>
-        <Text style={{margin: 10, width: 50}}>Tab7</Text>
+        <Text style={{margin: 10, height: 30, width: 50}}>Tab1</Text>
+        <Text style={{margin: 10, height: 30, width: 50}}>Tab2</Text>
+        <Text style={{margin: 10, height: 30, width: 50}}>Tab3</Text>
+        <Text style={{margin: 10, height: 30, width: 50}}>Tab4</Text>
+        <Text style={{margin: 10, height: 30, width: 50}}>Tab5</Text>
+        <Text style={{margin: 10, height: 30, width: 50}}>Tab6</Text>
+        <Text style={{margin: 10, height: 30, width: 50}}>Tab7</Text>
       </ScrollView>
       <ScrollView style={backgroundStyle} contentContainerStyle={{margin: 10}} showsVerticalScrollIndicator={false}>
         <Header />
@@ -249,6 +283,29 @@ function App(): JSX.Element {
           // onEndReached={() => Alert.alert('End.')}
         />
 
+        <FlatList
+          data={lists}
+          keyExtractor={item => item.id+item.title}
+          renderItem={renderItem}
+          horizontal={false}  // horizontal layout
+          initialScrollIndex={1}  // make any item in top 
+          initialNumToRender={3}  // render first four items and then render others
+          numColumns={2}  // assign columns, the same height, not waterfall
+          inverted={true} // list reverse include ListHeader and ListFooter
+          extraData={selectedId}  // 
+
+          ItemSeparatorComponent={() => (
+            <View style={{borderBottomWidth:1,borderBottomColor:'red'}}></View>
+          )}
+          ListEmptyComponent={() => (<Text>No datas!!</Text>)}
+          ListHeaderComponent={() => (<Text style={{fontSize:40}}>FlatList Title</Text>)}
+          ListFooterComponent={() => (<Text style={{fontSize:25}}>FlatList Footer</Text>)}
+          // can't be used in <ScrollView>
+          refreshing={false}
+          onRefresh={() => Alert.alert('dropdown refresh')}
+          onEndReachedThreshold={0.1}
+          onEndReached={() => Alert.alert('End.')}
+        ></FlatList>
         <View
           style={[
             styles.container,
