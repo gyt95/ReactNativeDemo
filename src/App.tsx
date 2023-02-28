@@ -5,10 +5,11 @@
  * @format
  */
 
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
+  Animated,
   Button,
   Dimensions,
   FlatList,
@@ -198,6 +199,31 @@ function App(): JSX.Element {
     )
   }
 
+  
+  // fadeAnim will be used as the value for opacity. Initial Value: 0
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  const fadeIn = () => {
+    // Will change fadeAnim value to 1 in 5 seconds
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 3000,
+      useNativeDriver: true,  // native animate enginee
+    }).start(() => {
+      // animate callback function
+      console.log('finish animate fadeIn')
+    });
+  };
+
+  const fadeOut = () => {
+    // Will change fadeAnim value to 0 in 5 seconds
+    Animated.timing(fadeAnim, {
+      toValue: 0,
+      duration: 3000,
+      useNativeDriver: true,  // native animate enginee
+    }).start();
+  };
+
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
@@ -306,6 +332,24 @@ function App(): JSX.Element {
           onEndReachedThreshold={0.1}
           onEndReached={() => Alert.alert('End.')}
         ></FlatList>
+
+        <View style={styles.container}>
+          <Animated.View
+            style={[
+              styles.fadingContainer,
+              {
+                opacity: fadeAnim // Bind opacity to animated value
+              }
+            ]}
+          >
+            <Text style={styles.fadingText}>Fading View!</Text>
+          </Animated.View>
+          <View style={styles.buttonRow}>
+            <Button title="Fade In" onPress={fadeIn} />
+            <Button title="Fade Out" onPress={fadeOut} />
+          </View>
+        </View>
+
         <View
           style={[
             styles.container,
@@ -343,6 +387,20 @@ function App(): JSX.Element {
 }
 
 const styles = StyleSheet.create({
+  fadingContainer: {
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    backgroundColor: "powderblue"
+  },
+  fadingText: {
+    fontSize: 28,
+    textAlign: "center",
+    margin: 10
+  },
+  buttonRow: {
+    flexDirection: "row",
+    marginVertical: 16
+  },
   SectionListItem: {
     backgroundColor: "#f9c2ff",
     padding: 10,
