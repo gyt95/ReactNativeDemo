@@ -337,7 +337,7 @@ function App(): JSX.Element {
           onEndReached={() => Alert.alert('End.')}
         ></FlatList>
 
-        <View style={styles.container}>
+        <View style={[styles.animated]}>
           <Animated.View
             style={[
               styles.fadingContainer,
@@ -411,6 +411,11 @@ const styles = StyleSheet.create({
     height:50, 
     width: Dimensions.get('window').width, 
     backgroundColor: '#ccc'
+  },
+  animated: {
+    borderWidth: 2,
+    borderColor: 'skyblue',
+    marginVertical: 10
   },
   fadingContainer: {
     paddingVertical: 8,
