@@ -30,6 +30,7 @@ import {
   View,
 } from 'react-native';
 import { WebView } from 'react-native-webview';
+import { Picker } from '@react-native-picker/picker';
 
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import Header from './components/Header';
@@ -225,6 +226,8 @@ function App(): JSX.Element {
     }).start();
   };
 
+  const [selectedLanguage, setSelectedLanguage] = useState('JavaScript');
+
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
@@ -353,6 +356,20 @@ function App(): JSX.Element {
 
         <WebView source={{ uri: 'https://reactnative.dev/' }} />;
 
+        <Picker
+          selectedValue={selectedLanguage}
+          style={styles.picker}
+          mode={'dropdown'}  // only Android
+          onValueChange={(itemValue, itemIndex) =>
+            setSelectedLanguage(itemValue)
+          }>
+          <Picker.Item label="Java" value="java" />
+          <Picker.Item label="JavaScript" value="js" />
+        </Picker>
+        <View>
+          <Text>{selectedLanguage}</Text>
+        </View>
+
         <View
           style={[
             styles.container,
@@ -390,6 +407,11 @@ function App(): JSX.Element {
 }
 
 const styles = StyleSheet.create({
+  picker: {
+    height:50, 
+    width: Dimensions.get('window').width, 
+    backgroundColor: '#ccc'
+  },
   fadingContainer: {
     paddingVertical: 8,
     paddingHorizontal: 16,
