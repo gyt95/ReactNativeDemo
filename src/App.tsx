@@ -31,6 +31,7 @@ import {
 } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { Picker } from '@react-native-picker/picker';
+import Swiper from 'react-native-swiper'
 
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import Header from './components/Header';
@@ -372,6 +373,11 @@ function App(): JSX.Element {
           <Text>{selectedLanguage}</Text>
         </View>
 
+        <Swiper style={styles.swiper} showsButtons={true} autoplay={true}>
+          <Image source={require('./assets/a.png')} style={styles.itemImage}></Image>
+          <Image source={require('./assets/b.png')} style={styles.itemImage}></Image>
+        </Swiper>
+
         <View
           style={[
             styles.container,
@@ -409,6 +415,9 @@ function App(): JSX.Element {
 }
 
 const styles = StyleSheet.create({
+  swiper: {
+    height: 200
+  },
   picker: {
     height:50, 
     width: Dimensions.get('window').width, 
