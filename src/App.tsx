@@ -310,7 +310,7 @@ function App(): JSX.Element {
           // refreshing={false}
           // onRefresh={() => Alert.alert('dropdown refresh')}
           // onEndReachedThreshold={0.1}
-          // onEndReached={() => Alert.alert('End.')}
+          // onEndReached={() => Alert.alert('Tips', 'End.')}
         />
 
         <FlatList
@@ -331,10 +331,10 @@ function App(): JSX.Element {
           ListHeaderComponent={() => (<Text style={{fontSize:40}}>FlatList Title</Text>)}
           ListFooterComponent={() => (<Text style={{fontSize:25}}>FlatList Footer</Text>)}
           // can't be used in <ScrollView>
-          refreshing={false}
-          onRefresh={() => Alert.alert('dropdown refresh')}
-          onEndReachedThreshold={0.1}
-          onEndReached={() => Alert.alert('End.')}
+          // refreshing={false}
+          // onRefresh={() => Alert.alert('dropdown refresh')}
+          // onEndReachedThreshold={0.1}
+          // onEndReached={() => Alert.alert('Tips', 'End.')}
         ></FlatList>
 
         <View style={[styles.animated]}>
@@ -354,7 +354,9 @@ function App(): JSX.Element {
           </View>
         </View>
 
-        <WebView source={{ uri: 'https://reactnative.dev/' }} />;
+        {/* <View style={{flex: 1, flexDirection: 'row'}}>
+          <WebView style={{flex: 1}} source={{ uri: 'https://www.baidu.com/' }} />
+        </View> */}
 
         <Picker
           selectedValue={selectedLanguage}
