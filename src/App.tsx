@@ -37,6 +37,8 @@ import { Colors } from 'react-native/Libraries/NewAppScreen';
 import Header from './components/Header';
 import TodoItem from './components/TodoItem';
 import type { TodoItemType } from './types';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Storage from './utils/storage';
 
 function App(): JSX.Element {
   if(Platform.OS === 'android'){
@@ -229,6 +231,27 @@ function App(): JSX.Element {
 
   const [selectedLanguage, setSelectedLanguage] = useState('JavaScript');
 
+  const storeData = (value: string) => {
+    AsyncStorage.setItem('test', value)
+  }
+
+  const getData = async (name: string) => {
+    try {
+      const value = await AsyncStorage.getItem(name)
+      if(value !== null){
+        Alert.alert('Success!', value)
+      }else{
+        Alert.alert('Wrong!', "You don't set this data!")
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const addData = (value: string) => {
+    Storage.set('test2', value)
+  }
+
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
@@ -378,6 +401,14 @@ function App(): JSX.Element {
           <Image source={require('./assets/b.png')} style={styles.itemImage}></Image>
         </Swiper>
 
+        <View style={styles.storage}>
+          <Button title="setItems" onPress={() => storeData('hello RN')}></Button>
+          <Button title="getItems" onPress={() => getData('test')}></Button>
+          <Button title="setItemsByMyStorage" onPress={() => addData('hello! RN!')}></Button>
+          <Button title="getItemsByMyStorage" onPress={() => getData('test2')}></Button>
+          <Button title="clearAll" onPress={Storage.clear}></Button>
+        </View>
+
         <View
           style={[
             styles.container,
@@ -415,6 +446,11 @@ function App(): JSX.Element {
 }
 
 const styles = StyleSheet.create({
+  storage: {
+    margin: 10,
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+  },
   swiper: {
     height: 200
   },
