@@ -229,7 +229,7 @@ function App(): JSX.Element {
     }).start();
   };
 
-  const [selectedLanguage, setSelectedLanguage] = useState('JavaScript');
+  const [selectedLanguage, setSelectedLanguage] = useState('js');
 
   const storeData = (value: string) => {
     AsyncStorage.setItem('test', value)
