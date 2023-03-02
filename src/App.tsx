@@ -5,7 +5,7 @@
  * @format
  */
 
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
@@ -32,6 +32,7 @@ import {
 import { WebView } from 'react-native-webview';
 import { Picker } from '@react-native-picker/picker';
 import Swiper from 'react-native-swiper'
+import Geolocation from '@react-native-community/geolocation';
 
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import Header from './components/Header';
@@ -251,6 +252,31 @@ function App(): JSX.Element {
   const addData = (value: string) => {
     Storage.set('test2', value)
   }
+
+  // useEffect(() => ..., []) like lifecycle componentDidMount
+  // useEffect must not return anything besides a function, which is used for clean-up.
+  // Don't use useEffect(async () => ...) or returned a Promise. Instead, write the async function inside your effect and call it immediately
+  useEffect(() => {
+    const checkLocation = async () => {
+      const location = await Storage.get('coords')
+      console.log(location);
+      if(!location){
+        console.log('start getCurrentPosition...');
+        
+        Geolocation.getCurrentPosition(info => {
+          console.log(info)
+          Alert.alert('Success!', 'You get the Geolocation')
+          Storage.set('coords', JSON.stringify(info.coords))
+        },
+        error => Alert.alert('Error!', JSON.stringify(error)),
+        {
+          timeout: 30000
+        }
+        );
+      }
+    }
+    checkLocation();
+  }, [])
 
   return (
     <SafeAreaView style={backgroundStyle}>
