@@ -311,20 +311,33 @@ function App(): JSX.Element {
       <ScrollView style={backgroundStyle} contentContainerStyle={{margin: 10}} showsVerticalScrollIndicator={false}>
         <Header />
 
+        <Text style={styles.commonTitleText}>Button</Text>
         {/* Can not use style property in Button */}
         <Button title="Two Func Button" onPress={createTwoButtonAlert} color="green"></Button>
         <Button title="Three Func Button" onPress={createThreeButtonAlert} color="tomato"></Button>
-        <Switch trackColor={{ false:'red', true: 'green' }} thumbColor={!hideStatusBar?'grey':'blue'} value={hideStatusBar} onValueChange={() => setStatusBar(!hideStatusBar)}></Switch>
 
-        {/* large/small size can be effective in Android and iOS */}
-        <ActivityIndicator color="#00d00f" size={'large'}/>
-        <ActivityIndicator color="#00d00f" size={'small'}/>
-        {/* number size only be effective in Android */}
-        <ActivityIndicator color="#00d00f" size={20}/>
-        <ActivityIndicator color="#00d0ff" size={50}/>
+        <Text style={styles.commonTitleText}>Switch</Text>
+        <Switch 
+          trackColor={{ false:'red', true: 'green' }} 
+          thumbColor={!hideStatusBar?'grey':'blue'} 
+          value={hideStatusBar}
+          onValueChange={() => setStatusBar(!hideStatusBar)}
+        ></Switch>
 
+        <Text style={styles.commonTitleText}>ActivityIndicator(Loading)</Text>
+        <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
+          {/* large/small size can be effective in Android and iOS */}
+          <ActivityIndicator color="#00d00f" size={'large'}/>
+          <ActivityIndicator color="#00d00f" size={'small'}/>
+          {/* number size only be effective in Android */}
+          <ActivityIndicator color="#00d00f" size={20}/>
+          <ActivityIndicator color="#00d0ff" size={50}/>
+        </View>
+        
+        <Text style={styles.commonTitleText}>Image</Text>
         <Image source={require('./assets/a.png')} style={styles.itemImage}/>
 
+        <Text style={styles.commonTitleText}>TextInput - TextArea</Text>
         <TextInput
           style={styles.itemTextarea}
           value={longText}
@@ -335,6 +348,7 @@ function App(): JSX.Element {
           textAlignVertical="top"
         />
 
+        <Text style={styles.commonTitleText}>Touchable</Text>
         <TouchableHighlight
           underlayColor="#DDDDDD"
           onPress={() => Alert.alert('Pressed!')}>
@@ -357,6 +371,7 @@ function App(): JSX.Element {
           </View>
         </TouchableWithoutFeedback>
 
+        <Text style={styles.commonTitleText}>SectionList</Text>
         <SectionList
           sections={DATA}
           keyExtractor={(item, index) => item + index}
@@ -377,6 +392,7 @@ function App(): JSX.Element {
           // onEndReached={() => Alert.alert('Tips', 'End.')}
         />
 
+        <Text style={styles.commonTitleText}>FlatList</Text>
         <FlatList
           data={lists}
           keyExtractor={item => item.id+item.title}
@@ -401,6 +417,7 @@ function App(): JSX.Element {
           // onEndReached={() => Alert.alert('Tips', 'End.')}
         ></FlatList>
 
+        <Text style={styles.commonTitleText}>Animated</Text>
         <View style={[styles.animated]}>
           <Animated.View
             style={[
@@ -418,10 +435,13 @@ function App(): JSX.Element {
           </View>
         </View>
 
+        <Text style={styles.commonTitleText}>WebView</Text>
+        <Text>...</Text>
         {/* <View style={{flex: 1, flexDirection: 'row'}}>
           <WebView style={{flex: 1}} source={{ uri: 'https://www.baidu.com/' }} />
         </View> */}
 
+        <Text style={styles.commonTitleText}>Picker</Text>
         <Picker
           selectedValue={selectedLanguage}
           style={styles.picker}
@@ -436,11 +456,13 @@ function App(): JSX.Element {
           <Text>{selectedLanguage}</Text>
         </View>
 
+        <Text style={styles.commonTitleText}>Swiper</Text>
         <Swiper style={styles.swiper} showsButtons={true} autoplay={true}>
           <Image source={require('./assets/a.png')} style={styles.itemImage}></Image>
           <Image source={require('./assets/b.png')} style={styles.itemImage}></Image>
         </Swiper>
 
+        <Text style={styles.commonTitleText}>AsyncStorage</Text>
         <View style={styles.storage}>
           <Button title="setItems" onPress={() => storeData('hello RN')}></Button>
           <Button title="getItems" onPress={() => getData('test')}></Button>
@@ -506,9 +528,10 @@ const styles = StyleSheet.create({
     height: 100
   },
   storage: {
-    margin: 10,
     flexWrap: 'wrap',
     flexDirection: 'row',
+    columnGap: 10,
+    rowGap: 10
   },
   swiper: {
     height: 200
@@ -521,7 +544,7 @@ const styles = StyleSheet.create({
   animated: {
     borderWidth: 2,
     borderColor: 'skyblue',
-    marginVertical: 10
+    marginVertical: 10,
   },
   fadingContainer: {
     paddingVertical: 8,
@@ -535,7 +558,8 @@ const styles = StyleSheet.create({
   },
   buttonRow: {
     flexDirection: "row",
-    marginVertical: 16
+    marginVertical: 16,
+    columnGap: 10,
   },
   SectionListItem: {
     backgroundColor: "#f9c2ff",
