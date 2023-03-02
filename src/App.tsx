@@ -33,6 +33,7 @@ import { WebView } from 'react-native-webview';
 import { Picker } from '@react-native-picker/picker';
 import Swiper from 'react-native-swiper'
 import Geolocation from '@react-native-community/geolocation';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import Header from './components/Header';
@@ -278,6 +279,19 @@ function App(): JSX.Element {
     checkLocation();
   }, [])
 
+  const [avatar, setAvatar] = useState('https://avatars.githubusercontent.com/u/23090676?v=4')
+  const changeImage = async () => {
+    // launchCamera(options?) launchImageLibrary(options?)
+    const result = await launchImageLibrary({
+      // many options you can see in https://github.com/react-native-image-picker/react-native-image-picker#options
+      mediaType: 'mixed'
+    });
+    console.log(result);
+    if(result.assets){
+      setAvatar(result.assets[0].uri!)
+    }
+  }
+
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
@@ -435,6 +449,15 @@ function App(): JSX.Element {
           <Button title="clearAll" onPress={Storage.clear}></Button>
         </View>
 
+        <Text style={styles.commonTitleText}>image-picker...launchCamera or launchImageLibrary</Text>
+        <View>
+          <TouchableOpacity onPress={changeImage}>
+            <View style={styles.avatar}>
+              <Image style={styles.avatar} source={{ uri: avatar }}></Image>
+            </View>
+          </TouchableOpacity>
+        </View>
+
         <View
           style={[
             styles.container,
@@ -472,6 +495,16 @@ function App(): JSX.Element {
 }
 
 const styles = StyleSheet.create({
+  commonTitleText: {
+    marginTop: 10,
+    fontWeight: 'bold',
+    fontSize: 20,
+    color: 'orange',
+  },
+  avatar: {
+    width: 100,
+    height: 100
+  },
   storage: {
     margin: 10,
     flexWrap: 'wrap',
