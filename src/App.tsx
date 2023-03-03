@@ -5,7 +5,7 @@
  * @format
  */
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { ReactPropTypes, useEffect, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
@@ -34,6 +34,8 @@ import { Picker } from '@react-native-picker/picker';
 import Swiper from 'react-native-swiper'
 import Geolocation from '@react-native-community/geolocation';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import Header from './components/Header';
@@ -42,7 +44,9 @@ import type { TodoItemType } from './types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Storage from './utils/storage';
 
-function App(): JSX.Element {
+const Stack = createNativeStackNavigator();
+
+function HomeScreen(prop: any): JSX.Element {
   if(Platform.OS === 'android'){
     console.log('android app')
   }else if(Platform.OS === 'ios'){
@@ -309,6 +313,9 @@ function App(): JSX.Element {
         <Text style={{margin: 10, height: 30, width: 50}}>Tab7</Text>
       </ScrollView>
       <ScrollView style={backgroundStyle} contentContainerStyle={{margin: 10}} showsVerticalScrollIndicator={false}>
+        
+        <Button title={'Jump to Home Screen'} onPress={() => prop.navigation.navigate('News')} />
+
         <Header />
 
         <Text style={styles.commonTitleText}>Button</Text>
@@ -609,5 +616,41 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
   },
 });
+
+function NewsScreen(prop: any){
+  return (
+    <View>
+      <Text>News Screen</Text>
+      <Button title={'Jump to Home Screen'} onPress={() => prop.navigation.navigate('Home')} />
+    </View>
+  )
+}
+
+function App(): JSX.Element {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator 
+        initialRouteName="Home"
+        screenOptions={{ 
+          headerShown: true, // hide header
+          // headerMode: 'screen',
+        }}
+      >
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="News" component={NewsScreen} options={{
+          title: 'News...',
+          headerStyle: {
+            backgroundColor: 'skyblue',
+          },
+          headerRight: () => (
+            <TouchableOpacity onPress={() => Alert.alert('Alert', 'Hello')}>
+              <Text>Hello!!!</Text>
+            </TouchableOpacity>
+          )
+        }}/>
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
+}
 
 export default App;
