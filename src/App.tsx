@@ -36,6 +36,7 @@ import Geolocation from '@react-native-community/geolocation';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import Header from './components/Header';
@@ -44,7 +45,7 @@ import type { TodoItemType } from './types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Storage from './utils/storage';
 
-const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
 function HomeScreen(prop: any): JSX.Element {
   if(Platform.OS === 'android'){
@@ -314,7 +315,8 @@ function HomeScreen(prop: any): JSX.Element {
       </ScrollView>
       <ScrollView style={backgroundStyle} contentContainerStyle={{margin: 10}} showsVerticalScrollIndicator={false}>
         
-        <Button title={'Jump to Home Screen'} onPress={() => prop.navigation.navigate('News')} />
+        {/* when using TabNavigator, you may not use prop.navigation.navigate function */}
+        {/* <Button title={'Jump to Home Screen'} onPress={() => prop.navigation.navigate('News')} /> */}
 
         <Header />
 
@@ -621,7 +623,8 @@ function NewsScreen(prop: any){
   return (
     <View>
       <Text>News Screen</Text>
-      <Button title={'Jump to Home Screen'} onPress={() => prop.navigation.navigate('Home')} />
+      {/* when using TabNavigator, you may not use prop.navigation.navigate function */}
+      {/* <Button title={'Jump to Home Screen'} onPress={() => prop.navigation.navigate('Home')} /> */}
     </View>
   )
 }
@@ -629,26 +632,30 @@ function NewsScreen(prop: any){
 function App(): JSX.Element {
   return (
     <NavigationContainer>
-      <Stack.Navigator 
-        initialRouteName="Home"
-        screenOptions={{ 
-          headerShown: true, // hide header
-          // headerMode: 'screen',
-        }}
-      >
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="News" component={NewsScreen} options={{
-          title: 'News...',
-          headerStyle: {
-            backgroundColor: 'skyblue',
+      <Tab.Navigator
+        screenOptions={({route}) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName = ''
+            if(route.name === 'Home'){
+              iconName = 'HomeTab'
+            }else if(route.name === 'News'){
+              iconName = 'NewsTab'
+            }
+            return <Button title={iconName} color={color} />
           },
-          headerRight: () => (
-            <TouchableOpacity onPress={() => Alert.alert('Alert', 'Hello')}>
-              <Text>Hello!!!</Text>
-            </TouchableOpacity>
-          )
-        }}/>
-      </Stack.Navigator>
+          tabBarActiveTintColor: 'blue',
+          tabBarInActiveTintColor: '#ccc',
+        })}
+        // The tabBarOptions prop is removed in favor of more flexible options for bottom tabs
+        // tabBarOptions={{
+        //   activeTintColor: 'tomato'
+        // }}
+        // The list of the options have new name, like activeTintColor -> tabBarActiveTintColor, 
+        // and move all of these to screenOptions
+      >
+        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="News" component={NewsScreen} />
+      </Tab.Navigator>
     </NavigationContainer>
   )
 }
