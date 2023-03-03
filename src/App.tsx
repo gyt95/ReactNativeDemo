@@ -37,6 +37,7 @@ import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import Header from './components/Header';
@@ -637,13 +638,13 @@ function App(): JSX.Element {
           tabBarIcon: ({ focused, color, size }) => {
             let iconName = ''
             if(route.name === 'Home'){
-              iconName = 'HomeTab'
+              iconName = focused ? 'home' : 'home-outline'
             }else if(route.name === 'News'){
-              iconName = 'NewsTab'
+              iconName = focused ? 'newspaper' : 'newspaper-outline'
             }
-            return <Button title={iconName} color={color} />
+            return <Icon name={iconName} size={20} color={color} />
           },
-          tabBarActiveTintColor: 'blue',
+          tabBarActiveTintColor: '#5B8FF9',
           tabBarInActiveTintColor: '#ccc',
         })}
         // The tabBarOptions prop is removed in favor of more flexible options for bottom tabs
