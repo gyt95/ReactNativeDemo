@@ -5,12 +5,10 @@ import {
   Animated,
   Button,
   Dimensions,
-  FlatList,
   Image,
   Platform,
   SafeAreaView,
   ScrollView,
-  SectionList,
   StatusBar,
   StyleSheet,
   Switch,
@@ -35,7 +33,6 @@ import type { TodoItemType } from '../types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Storage from '../utils/storage';
 import { getCity, getWeather } from '../api';
-import { FLAT_LIST_DATA, SECTION_LIST_DATA } from '../constants';
 
 const ImageA = require('../assets/a.png')
 const ImageB = require('../assets/b.png')
@@ -151,24 +148,6 @@ export default function HomeScreen(prop: any): JSX.Element {
           style: 'default'
         }
       ]
-    )
-  }
-
-  const [selectedId, setSelectedId] = useState('')
-
-  const Item = ({ title }: any) => (
-    <View style={styles.SectionListItem}>
-      <Text style={styles.SectionListTitle}>{title}</Text>
-    </View>
-  );
-  const renderItem = ({ item }: any) => {
-    const backgroundColor = item.id === selectedId ? '#dfb' : '#f9c2ff'
-    return (
-      <TouchableOpacity style={[styles.SectionListItem, { backgroundColor }]} onPress={() => {
-        setSelectedId(item.id)
-      }}>
-        <Text style={styles.SectionListTitle}>{item.title}</Text>
-      </TouchableOpacity>
     )
   }
 
@@ -361,50 +340,10 @@ export default function HomeScreen(prop: any): JSX.Element {
         </TouchableWithoutFeedback>
 
         <Text style={styles.commonTitleText}>SectionList</Text>
-        <SectionList
-          sections={SECTION_LIST_DATA}
-          keyExtractor={(item, index) => item + index}
-          renderItem={({ item }) => <Item title={item} />}
-          renderSectionHeader={({ section: { title } }) => (
-            <Text style={styles.SectionListHeader}>{title}</Text>
-          )}
-          ItemSeparatorComponent={() => (
-            <View style={{ borderBottomWidth: 1, borderBottomColor: 'red' }}></View>
-          )}
-          ListEmptyComponent={() => (<Text>No datas</Text>)}
-          ListHeaderComponent={() => (<Text style={{ fontSize: 40 }}>SectionList Title</Text>)}
-          ListFooterComponent={() => (<Text style={{ fontSize: 25 }}>SectionList Footer</Text>)}
-        // can't be used in <ScrollView>
-        // refreshing={false}
-        // onRefresh={() => Alert.alert('dropdown refresh')}
-        // onEndReachedThreshold={0.1}
-        // onEndReached={() => Alert.alert('Tips', 'End.')}
-        />
+        <Text>You can see SectionList in NewsScreen</Text>
 
         <Text style={styles.commonTitleText}>FlatList</Text>
-        <FlatList
-          data={FLAT_LIST_DATA}
-          keyExtractor={item => item.id + item.title}
-          renderItem={renderItem}
-          horizontal={false}  // horizontal layout
-          initialScrollIndex={1}  // make any item in top 
-          initialNumToRender={3}  // render first four items and then render others
-          numColumns={2}  // assign columns, the same height, not waterfall
-          inverted={true} // list reverse include ListHeader and ListFooter
-          extraData={selectedId}  // 
-
-          ItemSeparatorComponent={() => (
-            <View style={{ borderBottomWidth: 1, borderBottomColor: 'red' }}></View>
-          )}
-          ListEmptyComponent={() => (<Text>No datas!!</Text>)}
-          ListHeaderComponent={() => (<Text style={{ fontSize: 40 }}>FlatList Title</Text>)}
-          ListFooterComponent={() => (<Text style={{ fontSize: 25 }}>FlatList Footer</Text>)}
-        // can't be used in <ScrollView>
-        // refreshing={false}
-        // onRefresh={() => Alert.alert('dropdown refresh')}
-        // onEndReachedThreshold={0.1}
-        // onEndReached={() => Alert.alert('Tips', 'End.')}
-        ></FlatList>
+        <Text>You can see FlatList in NewsScreen</Text>
 
         <Text style={styles.commonTitleText}>Animated</Text>
         <View style={[styles.animated]}>
@@ -506,7 +445,7 @@ export default function HomeScreen(prop: any): JSX.Element {
   );
 }
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   commonTitleText: {
     marginTop: 10,
     fontWeight: 'bold',
