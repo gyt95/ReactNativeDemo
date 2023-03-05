@@ -341,7 +341,6 @@ function HomeScreen(prop: any): JSX.Element {
         {/* when using TabNavigator, you may not use prop.navigation.navigate function */}
         {/* <Button title={'Jump to Home Screen'} onPress={() => prop.navigation.navigate('News')} /> */}
 
-        <Header />
 
         <Text style={styles.commonTitleText}>Button</Text>
         {/* Can not use style property in Button */}
@@ -504,7 +503,7 @@ function HomeScreen(prop: any): JSX.Element {
         </View>
 
         <Text style={styles.commonTitleText}>image-picker...launchCamera or launchImageLibrary</Text>
-        <View>
+        <View style={styles.avatar}>
           <TouchableOpacity onPress={changeImage}>
             <View style={styles.avatar}>
               <Image style={styles.avatar} source={{ uri: avatar }}></Image>
@@ -512,6 +511,7 @@ function HomeScreen(prop: any): JSX.Element {
           </TouchableOpacity>
         </View>
 
+        <Header />
         <View
           style={[
             styles.container,
