@@ -45,6 +45,7 @@ import TodoItem from './components/TodoItem';
 import type { TodoItemType } from './types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Storage from './utils/storage';
+import { getCity, getWeather } from './api';
 
 const Tab = createBottomTabNavigator();
 
@@ -275,7 +276,10 @@ function HomeScreen(prop: any): JSX.Element {
           Alert.alert('Success!', 'You get the Geolocation')
           Storage.set('coords', JSON.stringify(info.coords))
         },
-        error => Alert.alert('Error!', JSON.stringify(error)),
+        // error => Alert.alert('Error!', JSON.stringify(error)),
+        error => {
+          console.log('Geolocation', error);
+        },
         {
           timeout: 30000
         }
@@ -298,6 +302,20 @@ function HomeScreen(prop: any): JSX.Element {
     }
   }
 
+  
+  const [city, setCity] = useState('')
+  const [weather, setWeather] = useState('')
+  const getCityAndWeather = async () => {
+    const location = await getCity();
+    console.log('Success!', location);
+    setCity(location[0].name)
+
+    const weather = await getWeather();
+    console.log('Success!', weather);
+    const { text, windDir, temp } = weather.now;
+    setWeather(`${text} 风力：${windDir} 温度：${temp}`)
+  }
+
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
@@ -316,6 +334,10 @@ function HomeScreen(prop: any): JSX.Element {
       </ScrollView>
       <ScrollView style={backgroundStyle} contentContainerStyle={{margin: 10}} showsVerticalScrollIndicator={false}>
         
+        <Text style={styles.commonTitleText}>Fetch Data</Text>
+        <Button title="Fetch City And Weather Data" onPress={getCityAndWeather} />
+        <Text style={{fontSize: 22, marginVertical: 10}}>{city} {weather}</Text>
+
         {/* when using TabNavigator, you may not use prop.navigation.navigate function */}
         {/* <Button title={'Jump to Home Screen'} onPress={() => prop.navigation.navigate('News')} /> */}
 
