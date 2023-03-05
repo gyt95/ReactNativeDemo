@@ -1,7 +1,5 @@
 # ReactNativeDemo
 
-A Todo List.
-
 This branch is used to study React Native.
 
 ## Install
@@ -116,9 +114,13 @@ Animated
 
 ## Third Party Components
 
-##
-
 ## Screenshots
 
-![screenshot1](https://github.com/gyt95/ReactNativeDemo/blob/main/screenshots/image.png)
+![screenshot1](./screenshots/study1.png)
+
+![screenshot2](./screenshots/study2.png)
+
+![screenshot3](./screenshots/study3.png)
+
+![screenshot4](./screenshots/study4.png)
 
